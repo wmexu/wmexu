@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github-readme-terminal.vercel.app/api?username=wmexu&theme=dark" alt="Terminal Stats" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=wmexu&layout=pie&theme=transparent&hide_border=true&title_color=ffffff&text_color=999999" alt="Languages" />
 </p>
 
 </div>

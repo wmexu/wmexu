@@ -72,12 +72,12 @@ export default function RecentlyShipped() {
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Section Heading with 450 weight and clean spacing */}
         <h2
-          className="text-heading-section text-white mb-8 sm:mb-14 tracking-tight text-balance"
+          className="text-heading-section text-white mb-8 sm:mb-14 tracking-tight whitespace-nowrap sm:whitespace-normal sm:text-balance"
           style={{
             fontFamily: "var(--font-geist-sans), sans-serif",
-            fontSize: "clamp(32px, 7vw, 53px)",
+            fontSize: "clamp(26px, 6.2vw, 53px)",
             lineHeight: "1.1",
-            letterSpacing: "-2.4px",
+            letterSpacing: "-2px",
             fontWeight: 450,
           }}
         >

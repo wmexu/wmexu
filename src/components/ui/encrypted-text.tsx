@@ -40,52 +40,57 @@ export type EncryptedTextProps = {
   once?: boolean;
 };
 
-const DEFAULT_CHARSET =
-  "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-={}[];:,.<>/?";
+const NARROW_POOL = "iltjfr;:!|/";
+const LOWER_POOL = "abcdefghknopqrsuvwxyz";
+const UPPER_POOL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const DIGIT_POOL = "0123456789";
+
+function getCipherPoolForChar(char: string, charset?: string): string {
+  if (char === " ") return " ";
+  if (char === "&") return "&";
+  if (char === "/" || char === "\\" || char === "-") return "/-";
+
+  if ("iltjfrI1;:!|/.,'".includes(char)) {
+    return NARROW_POOL;
+  }
+  if (char === "m" || char === "w") {
+    return "mw";
+  }
+  if (char === "M" || char === "W") {
+    return "MW";
+  }
+  if (char >= "a" && char <= "z") {
+    return LOWER_POOL;
+  }
+  if (char >= "A" && char <= "Z") {
+    return UPPER_POOL;
+  }
+  if (char >= "0" && char <= "9") {
+    return DIGIT_POOL;
+  }
+  return charset && charset.length > 0 ? charset : NARROW_POOL;
+}
 
 /**
  * Deterministically generates a scrambled character for SSR and the first load stage.
- * Preserves spaces and character casing (lowercase remains lowercase/narrow)
- * so text width never jumps or exceeds the final revealed width, completely preventing halo collision.
+ * Preserves spaces, punctuation, and character width categories (narrow remains narrow, standard lowercase remains lowercase)
+ * so text width NEVER jumps or expands between encrypted and decrypted states.
  */
-function getInitialCipherChar(char: string, index: number): string {
-  if (char === " ") return " ";
-
-  if (char >= "a" && char <= "z") {
-    // Pure lowercase & narrow symbols: compact width matching lowercase text
-    const pool = "xkzvpqwsjfltrmeycnhadg0123456789/*-+;:_~";
-    const hash = Math.abs((index * 19 + char.charCodeAt(0) * 31 + 43) % pool.length);
-    return pool[hash];
-  }
-
-  if (char >= "A" && char <= "Z") {
-    const pool = "XKZVPQWSJFLTRMEYCNHADG0123456789/*-+;:_~";
-    const hash = Math.abs((index * 19 + char.charCodeAt(0) * 31 + 43) % pool.length);
-    return pool[hash];
-  }
-
-  // Numbers or punctuation
-  const pool = "0123456789/*-+;:_~#";
-  const hash = Math.abs((index * 13 + char.charCodeAt(0) * 17 + 29) % pool.length);
+function getInitialCipherChar(char: string, index: number, charset?: string): string {
+  const pool = getCipherPoolForChar(char, charset);
+  if (pool === " " || pool.length === 1) return pool;
+  const hash = Math.abs((index * 19 + char.charCodeAt(0) * 31 + 43) % pool.length);
   return pool[hash];
 }
 
 /**
- * Generates random gibberish character matching the case of the target character.
- * Prevents wide capital letters from expanding lowercase text lines during live flips.
+ * Generates random gibberish character strictly matching the typographic width and casing of the target character.
+ * Prevents wide numbers, symbols, or capital letters from expanding lines during live flips.
  */
 function generateRandomCharacterForChar(char: string, charset?: string): string {
-  if (char >= "a" && char <= "z") {
-    const lowercasePool = "abcdefghijklmnopqrstuvwxyz0123456789/*-+;:_~#";
-    return lowercasePool.charAt(Math.floor(Math.random() * lowercasePool.length));
-  }
-  if (char >= "A" && char <= "Z") {
-    const uppercasePool = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/*-+;:_~#";
-    return uppercasePool.charAt(Math.floor(Math.random() * uppercasePool.length));
-  }
-  const pool = charset || "0123456789/*-+;:_~#!@#$%^&*";
-  const index = Math.floor(Math.random() * pool.length);
-  return pool.charAt(index);
+  const pool = getCipherPoolForChar(char, charset);
+  if (pool === " " || pool.length === 1) return pool;
+  return pool.charAt(Math.floor(Math.random() * pool.length));
 }
 
 function generateGibberishPreservingCasing(
@@ -106,7 +111,7 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
   className,
   durationMs,
   revealDelayMs = 50,
-  charset = DEFAULT_CHARSET,
+  charset,
   flipDelayMs = 40,
   encryptedClassName,
   revealedClassName,
@@ -209,7 +214,7 @@ export const EncryptedText: React.FC<EncryptedTextProps> = ({
           : char === " "
             ? " "
             : (scrambleCharsRef.current[index] ??
-              getInitialCipherChar(char, index));
+              getInitialCipherChar(char, index, charset));
 
         return (
           <span

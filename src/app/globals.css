@@ -27,17 +27,27 @@ b, strong, h1, h2, h3, h4, h5, h6, th {
   font-weight: 450;
 }
 
-html, body {
+html {
   background-color: #000000;
   color: #ededed;
   font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: #000000;
+  color: #ededed;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: clip;
   min-height: 100vh;
+  -webkit-overflow-scrolling: touch;
 }
 
 html.lenis,
 html.lenis body {
   height: auto;
+  touch-action: pan-y;
 }
 
 .lenis.lenis-smooth {

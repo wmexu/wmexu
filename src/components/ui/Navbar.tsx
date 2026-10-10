@@ -38,7 +38,11 @@ export default function Navbar() {
     };
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
+    window.addEventListener("scroll", updateDimensions, { passive: true });
+    return () => {
+      window.removeEventListener("resize", updateDimensions);
+      window.removeEventListener("scroll", updateDimensions);
+    };
   }, []);
 
   // Real-time active section tracking on scroll (App, Skills, Discuss)
@@ -297,92 +301,92 @@ export default function Navbar() {
             </button>
           </div>
         </header>
-
-        {/* Mobile Menu Panel: Translucent Matte Glass iPhone Liquid Effect */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
-              data-lenis-prevent="true"
-              className="lg:hidden fixed inset-x-0 bottom-0 z-[100] flex flex-col justify-between p-6 sm:p-8 iphone-matte-glass overflow-y-auto allow-drawer-scroll overscroll-contain"
-              style={{
-                top: `${drawerTop}px`,
-                background: "linear-gradient(180deg, rgba(14, 14, 14, 0.78) 0%, rgba(6, 6, 6, 0.84) 100%)",
-                backdropFilter: "blur(36px) saturate(190%) contrast(105%)",
-                WebkitBackdropFilter: "blur(36px) saturate(190%) contrast(105%)",
-                borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-                boxShadow: "inset 0 1px 0 0 rgba(255, 255, 255, 0.12), inset 0 0 30px rgba(255, 255, 255, 0.02)",
-              }}
-            >
-              {/* Menu Links with live active indicator */}
-              <div className="flex flex-col gap-6 pt-4">
-                <button
-                  onClick={() => scrollTo(0)}
-                  className={`flex items-center justify-between text-2xl font-normal transition-colors text-left cursor-pointer ${
-                    activeSection === "app"
-                      ? "text-white font-medium-450"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  <span>App</span>
-                  <ChevronRight className={`w-5 h-5 transition-colors ${activeSection === "app" ? "text-white" : "text-zinc-500"}`} />
-                </button>
-
-                <button
-                  onClick={() => scrollTo("#skills")}
-                  className={`flex items-center justify-between text-2xl font-normal transition-colors text-left cursor-pointer ${
-                    activeSection === "skills"
-                      ? "text-white font-medium-450"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  <span>Skills</span>
-                  <ChevronRight className={`w-5 h-5 transition-colors ${activeSection === "skills" ? "text-white" : "text-zinc-500"}`} />
-                </button>
-
-                <button
-                  onClick={() => scrollTo("#discuss")}
-                  className={`flex items-center justify-between text-2xl font-normal transition-colors text-left cursor-pointer ${
-                    activeSection === "discuss"
-                      ? "text-white font-medium-450"
-                      : "text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  <span>Discuss</span>
-                  <ChevronRight className={`w-5 h-5 transition-colors ${activeSection === "discuss" ? "text-white" : "text-zinc-500"}`} />
-                </button>
-              </div>
-
-              {/* Bottom Stacked Buttons */}
-              <div className="flex flex-col gap-3.5 pt-8 pb-8">
-                <a
-                  href="https://github.com/wmexu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="btn-geist w-full py-3.5 rounded-lg border border-white/[0.14] hover:border-white/[0.28] bg-zinc-950/80 text-white text-sm font-normal text-center transition-colors inline-flex items-center justify-center gap-2 select-none"
-                >
-                  <SiGithub className="w-4 h-4 text-white shrink-0 -translate-y-[1px]" color="currentColor" />
-                  <span>Github</span>
-                </a>
-
-                <a
-                  href="https://t.me/wmexu?text=Hello,%20i%20would%20like%20to%20discuss%20a%20project."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="btn-geist w-full py-3.5 rounded-lg bg-white text-black text-sm font-normal text-center hover:bg-zinc-200 transition-colors shadow-sm inline-block"
-                >
-                  Contact
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.div>
+
+      {/* Mobile Menu Panel: Translucent Matte Glass iPhone Liquid Effect (outside transformed motion.div so fixed coordinates are true viewport-relative) */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.22, ease: "easeOut" }}
+            data-lenis-prevent="true"
+            className="lg:hidden fixed inset-x-0 bottom-0 z-[90] flex flex-col justify-between p-6 sm:p-8 iphone-matte-glass overflow-y-auto allow-drawer-scroll overscroll-contain pointer-events-auto"
+            style={{
+              top: `${drawerTop}px`,
+              background: "linear-gradient(180deg, rgba(14, 14, 14, 0.78) 0%, rgba(6, 6, 6, 0.84) 100%)",
+              backdropFilter: "blur(36px) saturate(190%) contrast(105%)",
+              WebkitBackdropFilter: "blur(36px) saturate(190%) contrast(105%)",
+              borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+              boxShadow: "inset 0 1px 0 0 rgba(255, 255, 255, 0.12), inset 0 0 30px rgba(255, 255, 255, 0.02)",
+            }}
+          >
+            {/* Menu Links with live active indicator */}
+            <div className="flex flex-col gap-6 pt-4">
+              <button
+                onClick={() => scrollTo(0)}
+                className={`flex items-center justify-between text-2xl font-normal transition-colors text-left cursor-pointer ${
+                  activeSection === "app"
+                    ? "text-white font-medium-450"
+                    : "text-zinc-400 hover:text-white"
+                }`}
+              >
+                <span>App</span>
+                <ChevronRight className={`w-5 h-5 transition-colors ${activeSection === "app" ? "text-white" : "text-zinc-500"}`} />
+              </button>
+
+              <button
+                onClick={() => scrollTo("#skills")}
+                className={`flex items-center justify-between text-2xl font-normal transition-colors text-left cursor-pointer ${
+                  activeSection === "skills"
+                    ? "text-white font-medium-450"
+                    : "text-zinc-400 hover:text-white"
+                }`}
+              >
+                <span>Skills</span>
+                <ChevronRight className={`w-5 h-5 transition-colors ${activeSection === "skills" ? "text-white" : "text-zinc-500"}`} />
+              </button>
+
+              <button
+                onClick={() => scrollTo("#discuss")}
+                className={`flex items-center justify-between text-2xl font-normal transition-colors text-left cursor-pointer ${
+                  activeSection === "discuss"
+                    ? "text-white font-medium-450"
+                    : "text-zinc-400 hover:text-white"
+                }`}
+              >
+                <span>Discuss</span>
+                <ChevronRight className={`w-5 h-5 transition-colors ${activeSection === "discuss" ? "text-white" : "text-zinc-500"}`} />
+              </button>
+            </div>
+
+            {/* Bottom Stacked Buttons */}
+            <div className="flex flex-col gap-3.5 pt-8 pb-8">
+              <a
+                href="https://github.com/wmexu"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="btn-geist w-full py-3.5 rounded-lg border border-white/[0.14] hover:border-white/[0.28] bg-zinc-950/80 text-white text-sm font-normal text-center transition-colors inline-flex items-center justify-center gap-2 select-none"
+              >
+                <SiGithub className="w-4 h-4 text-white shrink-0 -translate-y-[1px]" color="currentColor" />
+                <span>Github</span>
+              </a>
+
+              <a
+                href="https://t.me/wmexu?text=Hello,%20i%20would%20like%20to%20discuss%20a%20project."
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="btn-geist w-full py-3.5 rounded-lg bg-white text-black text-sm font-normal text-center hover:bg-zinc-200 transition-colors shadow-sm inline-block"
+              >
+                Contact
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

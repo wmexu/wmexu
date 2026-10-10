@@ -16,9 +16,9 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
         duration: 1.2,
         smoothWheel: true,
         syncTouch: true,
-        syncTouchLerp: 0.075,
-        touchInertiaExponent: 1.7,
-        touchMultiplier: 1.1,
+        syncTouchLerp: 0.08,
+        touchInertiaExponent: 1.2,
+        touchMultiplier: 1.15,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       }}
     >

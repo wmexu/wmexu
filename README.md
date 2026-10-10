@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=wmexu&layout=pie&theme=transparent&hide_border=true&title_color=ffffff&text_color=999999" alt="Languages" />
+  <img src="https://metrics.lecoq.io/wmexu?template=classic&base.header=0&base.activity=0&base.community=0&base.repositories=0&languages=1&languages.limit=6&languages.colors=github&languages.sections=most-used&config.timezone=Asia%2FAlmaty" alt="Metrics" />
 </p>
 
 </div>

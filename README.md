@@ -6,4 +6,8 @@
   <img src="https://skillicons.dev/icons?i=ts,js,react,nextjs,kotlin,py,postgres,git&theme=dark" alt="Tech Stack" />
 </p>
 
+<p align="center">
+  <img src="https://github-readme-terminal.vercel.app/api?username=wmexu&theme=dark" alt="Terminal Stats" />
+</p>
+
 </div>

@@ -319,7 +319,18 @@ export default function LiquidGlassLogo({
       isHovered = false;
     };
 
+    const handleTouchStart = (e: TouchEvent) => {
+      e.preventDefault();
+      if (!e.touches[0]) return;
+      const rect = canvas.getBoundingClientRect();
+      const rawX = (e.touches[0].clientX - rect.left) * dpr;
+      const rawY = (rect.height - (e.touches[0].clientY - rect.top)) * dpr;
+      targetMouse = [rawX, rawY];
+      isHovered = true;
+    };
+
     const handleTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
       if (!e.touches[0]) return;
       const rect = canvas.getBoundingClientRect();
       const rawX = (e.touches[0].clientX - rect.left) * dpr;
@@ -346,8 +357,8 @@ export default function LiquidGlassLogo({
     parent?.addEventListener("mouseenter", handleMouseEnter);
     parent?.addEventListener("mousemove", handleMouseMove);
     parent?.addEventListener("mouseleave", handleMouseLeave);
-    parent?.addEventListener("touchstart", handleMouseEnter, { passive: true });
-    parent?.addEventListener("touchmove", handleTouchMove, { passive: true });
+    parent?.addEventListener("touchstart", handleTouchStart, { passive: false });
+    parent?.addEventListener("touchmove", handleTouchMove, { passive: false });
     parent?.addEventListener("touchend", handleTouchEnd, { passive: true });
 
     let animId: number;
@@ -394,7 +405,7 @@ export default function LiquidGlassLogo({
       parent?.removeEventListener("mouseenter", handleMouseEnter);
       parent?.removeEventListener("mousemove", handleMouseMove);
       parent?.removeEventListener("mouseleave", handleMouseLeave);
-      parent?.removeEventListener("touchstart", handleMouseEnter);
+      parent?.removeEventListener("touchstart", handleTouchStart);
       parent?.removeEventListener("touchmove", handleTouchMove);
       parent?.removeEventListener("touchend", handleTouchEnd);
       gl.deleteProgram(program);
@@ -409,11 +420,14 @@ export default function LiquidGlassLogo({
 
   return (
     <div
+      data-lenis-prevent="true"
+      data-lenis-prevent-touch="true"
       className={`shrink-0 aspect-square relative inline-flex items-center justify-center select-none ${className}`}
       style={{
         width: `${canvasSize}px`,
         height: `${canvasSize}px`,
         aspectRatio: "1 / 1",
+        touchAction: "none",
       }}
     >
       {/* Pixel-perfect SSR & Pre-WebGL fallback matching the exact shader squircle shape & text */}
@@ -445,11 +459,14 @@ export default function LiquidGlassLogo({
       {/* Real WebGL Canvas with strictly 1:1 square shader */}
       <canvas
         ref={canvasRef}
+        data-lenis-prevent="true"
+        data-lenis-prevent-touch="true"
         className="shrink-0 aspect-square w-full h-full block cursor-pointer"
         style={{
           width: `${canvasSize}px`,
           height: `${canvasSize}px`,
           aspectRatio: "1 / 1",
+          touchAction: "none",
         }}
       />
     </div>

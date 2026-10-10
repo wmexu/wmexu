@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { EncryptedText } from "@/components/ui/encrypted-text";
 
 const PILLARS = [
   "Engineered end-to-end",
@@ -29,7 +30,12 @@ export default function RotatingPillarTicker() {
           exit={{ opacity: 0, y: -5 }}
           transition={{ duration: 0.25, ease: "easeInOut" }}
         >
-          {PILLARS[index]}
+          <EncryptedText
+            text={PILLARS[index]}
+            encryptedClassName="text-zinc-600"
+            revealedClassName="text-zinc-400"
+            revealDelayMs={25}
+          />
         </motion.span>
       </AnimatePresence>
     </div>

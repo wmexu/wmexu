@@ -35,6 +35,23 @@ html, body {
   min-height: 100vh;
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 /* Reference Typography: Tailwind v4 @utility declarations */
 @utility text-heading-hero {
   font-family: var(--font-geist-sans), sans-serif !important;

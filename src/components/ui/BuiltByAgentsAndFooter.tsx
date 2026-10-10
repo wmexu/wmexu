@@ -7,6 +7,7 @@ import {
   SiTypescript,
   SiReact,
 } from "@icons-pack/react-simple-icons";
+import { EncryptedText } from "@/components/ui/encrypted-text";
 
 interface FooterLink {
   name: string;
@@ -27,7 +28,7 @@ const FOOTER_COLUMNS: FooterColumn[] = [
       { name: "TypeScript", href: "https://www.typescriptlang.org/" },
       { name: "Tailwind CSS", href: "https://tailwindcss.com/" },
       { name: "Three.js / WebGL", href: "https://threejs.org/" },
-      { name: "Responsive UI", href: "https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design" },
+      { name: "Aceternity", href: "https://ui.aceternity.com/" },
     ],
   },
   {
@@ -76,7 +77,12 @@ export default function BuiltByAgentsAndFooter() {
             fontWeight: 450,
           }}
         >
-          From idea to production.
+          <EncryptedText
+            text="From idea to production."
+            encryptedClassName="text-zinc-600"
+            revealedClassName="text-white"
+            revealDelayMs={35}
+          />
         </h2>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-5 w-full max-w-xs sm:max-w-none mx-auto">

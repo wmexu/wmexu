@@ -10,7 +10,7 @@ export default function HeroTriangle() {
   const haloScale = useTransform(scrollY, [0, 450], [1, 0.94]);
 
   return (
-    <div className="relative flex items-center justify-center w-[360px] sm:w-[460px] lg:w-[530px] aspect-square mx-auto pointer-events-none select-none">
+    <div className="relative flex items-center justify-center w-[270px] sm:w-[460px] lg:w-[530px] aspect-square mx-auto pointer-events-none select-none">
       {/* SVG Displacement Map Filter provided by user */}
       <svg
         className="glass-surface__filter pointer-events-none opacity-0 absolute w-0 h-0 -z-10"
@@ -95,7 +95,7 @@ export default function HeroTriangle() {
         {/* Single Pure Radiant Halo Ring matching Reference (pure almost-white, no blue tint) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none -z-10">
           <svg
-            className="w-[360px] h-[360px] sm:w-[460px] sm:h-[460px] lg:w-[580px] lg:h-[580px] shrink-0"
+            className="w-[270px] h-[270px] sm:w-[460px] sm:h-[460px] lg:w-[580px] lg:h-[580px] shrink-0"
             viewBox="0 0 600 600"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +153,7 @@ export default function HeroTriangle() {
               className="flex items-center justify-center text-white/95"
               style={{
                 fontFamily: "var(--font-geist-sans), sans-serif",
-                fontSize: "clamp(76px, 11vw, 110px)",
+                fontSize: "clamp(56px, 14vw, 110px)",
                 letterSpacing: "-0.09em",
                 lineHeight: "0.82",
                 fontWeight: 700,
@@ -171,7 +171,7 @@ export default function HeroTriangle() {
               className="flex items-center justify-center text-white/95 -mt-1 sm:-mt-2"
               style={{
                 fontFamily: "var(--font-geist-sans), sans-serif",
-                fontSize: "clamp(76px, 11vw, 110px)",
+                fontSize: "clamp(56px, 14vw, 110px)",
                 letterSpacing: "-0.09em",
                 lineHeight: "0.82",
                 fontWeight: 700,
@@ -185,7 +185,7 @@ export default function HeroTriangle() {
               <span
                 className="text-white/90 inline-block font-mono translate-y-0.5 ml-0.5"
                 style={{
-                  fontSize: "clamp(55px, 8vw, 79px)",
+                  fontSize: "clamp(40px, 10vw, 79px)",
                   WebkitTextStroke: "0.8px rgba(255, 255, 255, 0.9)",
                 }}
               >

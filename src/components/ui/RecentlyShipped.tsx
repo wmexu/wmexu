@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, useInView } from "motion/react";
+import { EncryptedText } from "@/components/ui/encrypted-text";
 
 function BentoCard({
   children,
@@ -55,6 +56,17 @@ function BentoCard({
 }
 
 export default function RecentlyShipped() {
+  const card1Ref = useRef<HTMLDivElement>(null);
+  const card1InView = useInView(card1Ref, { once: false, amount: 0.15 });
+
+  const card2Ref = useRef<HTMLDivElement>(null);
+  const card2InView = useInView(card2Ref, { once: false, amount: 0.15 });
+
+  const card3Ref = useRef<HTMLDivElement>(null);
+  const card3InView = useInView(card3Ref, { once: false, amount: 0.15 });
+
+  const CARD_DURATION_MS = 650;
+
   return (
     <section id="skills" className="w-full py-16 sm:py-28 scroll-mt-24">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
@@ -69,7 +81,12 @@ export default function RecentlyShipped() {
             fontWeight: 450,
           }}
         >
-          Skills & Architecture
+          <EncryptedText
+            text="Skills & Architecture"
+            encryptedClassName="text-zinc-600"
+            revealedClassName="text-white"
+            durationMs={600}
+          />
         </h2>
 
         {/* Bento Grid with smooth spring physics */}
@@ -77,7 +94,10 @@ export default function RecentlyShipped() {
           {/* Card 1: Large Left Card (Full/Stack) */}
           <div className="lg:col-span-7 flex">
             <BentoCard>
-              <div className="w-full h-full rounded-2xl border border-white/[0.08] hover:border-white/[0.18] bg-[#000000] p-7 sm:p-12 lg:p-14 flex flex-col justify-between min-h-[360px] sm:min-h-[520px] relative overflow-hidden group transition-colors duration-500">
+              <div
+                ref={card1Ref}
+                className="w-full h-full rounded-2xl border border-white/[0.08] hover:border-white/[0.18] bg-[#000000] p-7 sm:p-12 lg:p-14 flex flex-col justify-between min-h-[360px] sm:min-h-[520px] relative overflow-hidden group transition-colors duration-500"
+              >
                 {/* Background geometric watermark art: Clean Architectural "F" with no slash */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.06] group-hover:opacity-[0.1] transition-opacity duration-500">
                   <svg
@@ -95,7 +115,7 @@ export default function RecentlyShipped() {
 
                 <div />
 
-                {/* Bottom Content */}
+                {/* Bottom Content: Synchronized decryption ending at the exact same millisecond */}
                 <div className="relative z-10 pt-16 sm:pt-0">
                   <div className="flex items-center gap-2 mb-3 sm:mb-4">
                     <span
@@ -104,7 +124,13 @@ export default function RecentlyShipped() {
                         fontFamily: "var(--font-geist-sans), sans-serif",
                       }}
                     >
-                      Full<span className="text-zinc-600">/</span>Stack
+                      <EncryptedText
+                        text="Full/Stack"
+                        encryptedClassName="text-zinc-600"
+                        revealedClassName="text-white"
+                        inView={card1InView}
+                        durationMs={CARD_DURATION_MS}
+                      />
                     </span>
                   </div>
                   <p
@@ -113,8 +139,13 @@ export default function RecentlyShipped() {
                       fontFamily: "var(--font-geist-sans), sans-serif",
                     }}
                   >
-                    full-stack is the architecture for building complete,
-                    production-grade applications.
+                    <EncryptedText
+                      text="full-stack is the architecture for building complete, production-grade applications."
+                      encryptedClassName="text-zinc-600"
+                      revealedClassName="text-zinc-400"
+                      inView={card1InView}
+                      durationMs={CARD_DURATION_MS}
+                    />
                   </p>
                 </div>
               </div>
@@ -125,14 +156,23 @@ export default function RecentlyShipped() {
           <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-8 justify-between">
             {/* Card 2: Frontend & UI */}
             <BentoCard className="flex-1 flex">
-              <div className="w-full h-full rounded-2xl border border-white/[0.08] hover:border-white/[0.18] bg-[#000000] p-7 sm:p-10 lg:p-12 flex flex-col justify-center min-h-[180px] sm:min-h-[240px] relative overflow-hidden group transition-colors duration-500">
+              <div
+                ref={card2Ref}
+                className="w-full h-full rounded-2xl border border-white/[0.08] hover:border-white/[0.18] bg-[#000000] p-7 sm:p-10 lg:p-12 flex flex-col justify-center min-h-[180px] sm:min-h-[240px] relative overflow-hidden group transition-colors duration-500"
+              >
                 <h3
                   className="text-2xl sm:text-3xl lg:text-[28px] text-white font-medium-450 tracking-tight"
                   style={{
                     fontFamily: "var(--font-geist-sans), sans-serif",
                   }}
                 >
-                  Frontend & UI
+                  <EncryptedText
+                    text="Frontend & UI"
+                    encryptedClassName="text-zinc-600"
+                    revealedClassName="text-white"
+                    inView={card2InView}
+                    durationMs={CARD_DURATION_MS}
+                  />
                 </h3>
                 <p
                   className="text-zinc-400 text-sm sm:text-base lg:text-lg mt-3 sm:mt-4 font-normal leading-relaxed w-full"
@@ -140,22 +180,36 @@ export default function RecentlyShipped() {
                     fontFamily: "var(--font-geist-sans), sans-serif",
                   }}
                 >
-                  Developing fast, interactive, and responsive user interfaces
-                  with Next.js, React, and custom styling.
+                  <EncryptedText
+                    text="Developing fast, interactive, and responsive user interfaces with Next.js, React, and custom styling."
+                    encryptedClassName="text-zinc-600"
+                    revealedClassName="text-zinc-400"
+                    inView={card2InView}
+                    durationMs={CARD_DURATION_MS}
+                  />
                 </p>
               </div>
             </BentoCard>
 
             {/* Card 3: Database & API */}
             <BentoCard className="flex-1 flex">
-              <div className="w-full h-full rounded-2xl border border-white/[0.08] hover:border-white/[0.18] bg-[#000000] p-7 sm:p-10 lg:p-12 flex flex-col justify-center min-h-[180px] sm:min-h-[240px] relative overflow-hidden group transition-colors duration-500">
+              <div
+                ref={card3Ref}
+                className="w-full h-full rounded-2xl border border-white/[0.08] hover:border-white/[0.18] bg-[#000000] p-7 sm:p-10 lg:p-12 flex flex-col justify-center min-h-[180px] sm:min-h-[240px] relative overflow-hidden group transition-colors duration-500"
+              >
                 <h3
                   className="text-2xl sm:text-3xl lg:text-[28px] text-white font-medium-450 tracking-tight"
                   style={{
                     fontFamily: "var(--font-geist-sans), sans-serif",
                   }}
                 >
-                  Database & API
+                  <EncryptedText
+                    text="Database & API"
+                    encryptedClassName="text-zinc-600"
+                    revealedClassName="text-white"
+                    inView={card3InView}
+                    durationMs={CARD_DURATION_MS}
+                  />
                 </h3>
                 <p
                   className="text-zinc-400 text-sm sm:text-base lg:text-lg mt-3 sm:mt-4 font-normal leading-relaxed w-full"
@@ -163,8 +217,13 @@ export default function RecentlyShipped() {
                     fontFamily: "var(--font-geist-sans), sans-serif",
                   }}
                 >
-                  Designing performant database schemas, optimized queries,
-                  and secure API integrations with PostgreSQL and Node.
+                  <EncryptedText
+                    text="Designing performant database schemas, optimized queries, and secure API integrations with PostgreSQL and Node."
+                    encryptedClassName="text-zinc-600"
+                    revealedClassName="text-zinc-400"
+                    inView={card3InView}
+                    durationMs={CARD_DURATION_MS}
+                  />
                 </p>
               </div>
             </BentoCard>

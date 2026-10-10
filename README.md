@@ -12,6 +12,6 @@
 
 ```yaml
 profile:
-  status: "building production systems"
-  focus: [TypeScript, Next.js, Architecture]
-  mode: strict
+status: "building production systems"
+focus: [TypeScript, Next.js, Architecture]
+mode: strict

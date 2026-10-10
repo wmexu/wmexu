@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ReactLenis } from "lenis/react";
 import React, { ReactNode } from "react";
@@ -15,10 +15,11 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
         lerp: 0.08,
         duration: 1.2,
         smoothWheel: true,
+        wheelMultiplier: 1,
         syncTouch: true,
-        syncTouchLerp: 0.08,
-        touchInertiaExponent: 1.2,
-        touchMultiplier: 1.15,
+        syncTouchLerp: 0.1,
+        touchInertiaExponent: 1.6,
+        touchMultiplier: 2.0,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       }}
     >

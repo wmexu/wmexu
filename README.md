@@ -1,13 +1,15 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=161b22&height=90&section=header" width="100%" />
-
 > *"Chemistry is the study of matter, but I prefer to see it as the study of change."*
 
-<br/>
+---
 
 <p align="center">
   <img src="https://skillicons.dev/icons?i=ts,js,react,nextjs,kotlin,py,postgres,git&theme=dark" alt="Tech Stack" />
 </p>
+
+---
+
+`Full-Stack Development` • `System Architecture` • `Embedded Systems`
 
 </div>
